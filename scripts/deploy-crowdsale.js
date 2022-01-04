@@ -1,10 +1,10 @@
 const hre = require("hardhat");
 
 async function main() {
-    const Crowdsale = await hre.ethers.getContractFactory("Crowdsale");
-    const crowdsale = await Crowdsale.deploy("deploying Crowdsale contract"); 
+    const MyCrowdsale = await hre.ethers.getContractFactory("Crowdsale");
+    const crowdsale = await MyCrowdsale.deploy("deploying Crowdsale contract"); 
 
-    await token.deployed();
+    await crowdsale.deployed();
     console.log("Crowdsale deployed to: ", crowdsale.address);
 }
 
