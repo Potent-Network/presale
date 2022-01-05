@@ -5,11 +5,12 @@ import "@openzeppelin/contracts/crowdsale/emission/AllowanceCrowdsale.sol";
 import "@openzeppelin/contracts/crowdsale/validation/IndividuallyCappedCrowdsale.sol";
 import "@openzeppelin/contracts/crowdsale/validation/TimedCrowdsale.sol";
 
-contract MyCrowdsale is Crowdsale {
+contract MyCrowdsale is Crowdsale, AllowanceCrowdsale {
     constructor(
         uint256 rate, 
         address payable wallet, 
-        IERC20 token
+        IERC20 token,
+        address tokenWallet
         //address tokenWallet // argument for allowance crowdsale
         // IndividuallyCappedCrowdsale doesn't have a constructor 
         //uint256 openingTime, // for timed crowdsale
@@ -18,6 +19,7 @@ contract MyCrowdsale is Crowdsale {
     )
  
     Crowdsale(rate, wallet, token) 
+    AllowanceCrowdsale(tokenWallet)
 
     public
     {

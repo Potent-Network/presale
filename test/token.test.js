@@ -12,9 +12,10 @@ contract('Token', accounts => {
   const _name = 'Token';
   const _symbol = 'TOK';
   const _decimals = web3.utils.toBN('18');
+  const _initialSupply = web3.utils.toBN('100000'); 
 
   beforeEach(async function () {
-    this.token = await Token.new(_name, _symbol, _decimals);
+    this.token = await Token.new(_name, _symbol, _decimals, _initialSupply);
   });
 
   describe('token attributes', function() {
@@ -33,5 +34,11 @@ contract('Token', accounts => {
       //decimals.should.be.bignumber.eql(_decimals);
       expect(decimals).to.eql(_decimals);
     });
+
+    it('has the correct initial supply', async function() {
+        const initialSupply = await this.token.totalSupply();
+        //decimals.should.be.bignumber.eql(_decimals);
+        expect(initialSupply).to.eql(_initialSupply);
+      });
   });
 });
