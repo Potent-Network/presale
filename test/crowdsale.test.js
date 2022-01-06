@@ -143,6 +143,23 @@ contract('Crowdsale', function([_, wallet, tokenWallet, investor1, investor2]) {
         });
         describe('when the investor exceeds the max cap', function() {
             it('rejects the transaction', async function() {
+                const value1 = ether('2'); 
+                await this.crowdsale.buyTokens(investor1, { value: value1, from: investor1});
+                const value2 = ether('49'); 
+                await this.crowdsale.buyTokens(investor1, { value: value2, from: investor1}).should.be.rejectedWith();
+            })
+        })
+        describe('when the contribution is within valid cap', function() {
+            it('succeeds and updates contribution amount', async function() {
+                const value1 = ether('20');
+                await this.crowdsale.buyTokens(investor1, { value: value1, from: investor1});
+                let contribution = await this.crowdsale.getUserContribution(investor1); 
+                expect(value1).to.eql(contribution); 
+                
+                const value2 = ether('15');
+                await this.crowdsale.buyTokens(investor1, { value: value2, from: investor1});
+                contribution = await this.crowdsale.getUserContribution(investor1); 
+                expect(ether('35')).to.eql(contribution); 
                 
             })
         })

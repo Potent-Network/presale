@@ -38,7 +38,15 @@ contract MyCrowdsale is Crowdsale, MintedCrowdsale, CappedCrowdsale {
     }
 
     /**
-    * @dev Overrides AllowanceCrowdsale behavior by calling allowance/approve before transfer
+    * @dev Getter for user to contributions mapping 
+    * @param _beneficiary Token purchaser address 
+    */
+    function getUserContribution(address _beneficiary) public view returns (uint256) {
+        return contributions[_beneficiary]; 
+    }
+
+    /**
+    * @dev Overrides and extends CappedCrowdsale behavior 
     * @param _beneficiary Token purchaser
     * @param _weiAmount Amount of tokens sent
     */
@@ -52,6 +60,11 @@ contract MyCrowdsale is Crowdsale, MintedCrowdsale, CappedCrowdsale {
         require(_newContribution >= investorMinCap && _newContribution <= investorMaxCap);
     }
 
+    /**
+    * @dev Overrides and extends Crowdsale behavior to update contributions
+    * @param _beneficiary Token purchaser
+    * @param _weiAmount Amount of tokens sent
+    */
     function _updatePurchasingState(
         address _beneficiary,
         uint256 _weiAmount 
